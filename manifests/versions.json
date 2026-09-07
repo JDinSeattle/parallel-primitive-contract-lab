@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/NVIDIA/cccl",
+  "base": "46a37f86b650bfc90b6cd852771bd31952688097",
+  "fixed": "a7f211c17cd15673d4bc8dbe2215c6952d9a1aef",
+  "upstream_patch": "https://github.com/NVIDIA/cccl/pull/10993",
+  "patch_authorship": "Existing upstream author; this lab independently validates the patch",
+  "scope": "single-channel integer HistogramEven and HistogramRange, int32/unsigned long long counters, strictly increasing int32 levels"
+}

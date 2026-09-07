@@ -1,0 +1,1947 @@
+{
+  "cpu": {
+    "checks": 263,
+    "status": "passed"
+  },
+  "environment": {
+    "git": {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 128,
+      "stderr": "fatal: not a git repository (or any of the parent directories): .git\n",
+      "stdout": ""
+    },
+    "gpu": {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,driver_version,compute_cap,pstate,temperature.gpu,clocks.sm,clocks.mem,power.draw,power.limit,memory.total,memory.used",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "name, uuid, driver_version, compute_cap, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], power.draw [W], power.limit [W], memory.total [MiB], memory.used [MiB]\nNVIDIA GeForce RTX 4090, GPU-048ba00a-2056-d3c0-6309-91c78ab69d63, 595.84, 8.9, P0, 40, 2520 MHz, 10501 MHz, 63.44 W, 450.00 W, 24564 MiB, 3269 MiB\n"
+    },
+    "measurement_policy": {
+      "clock_changes": false,
+      "display_gpu": true,
+      "scope": "one GPU; unlocked clocks; no cross-architecture claim"
+    },
+    "nvcc": {
+      "argv": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2026 NVIDIA Corporation\nBuilt on Fri_May_08_10:53:34_AM_PDT_2026\nCuda compilation tools, release 13.2, V13.2.86\nBuild cuda_13.2.r13.2/compiler.37953736_0\n"
+    },
+    "packages": {
+      "cupy-cuda13x": "14.2.0",
+      "flashinfer-python": "0.6.18.post1",
+      "numpy": "2.5.3",
+      "pyarrow": "25.0.1",
+      "pylibcudf-cu13": "26.8.1",
+      "pytest": "9.1.1",
+      "rmm-cu13": "26.8.0",
+      "torch": "2.13.0",
+      "triton": "3.7.1"
+    },
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "python": "3.13.15 (main, Aug  7 2026, 02:25:50) [Clang 22.1.3 ]",
+    "source_digest": "693caa352528f7970a988905fe3a61c027db19704608cb803c818f334be1e55c",
+    "source_files": {
+      "evidence.py": "ba6ed8dd43556d787c63c849f44a62f46ce284dddeb736d88c01098272cb9775",
+      "include/histogram_oracle.hpp": "3b422a1c91a5a58bdbcc266662e9771a91a5fb0755c211c5a494fe043f945f3b",
+      "manifests/versions.json": "d6a1f190cb044c0ea33cc65169383f344010f25aa1d3fe62500e89231665f355",
+      "qualification.py": "ac60d7ff5a266e047c1e383a32e1bdf27dfcdabb116484669a10ee936ea27433",
+      "scripts/setup.sh": "ae3d0462630bff65fc82af89da23f5f7efaa8b3f9227073ea409993e441531b7",
+      "src/histogram_probe.cu": "8e88427c0beb77406ba61761bfc4fa5cbd686cd2c8ac3ec43718ca99ed30e1f4"
+    },
+    "utc": "2026-09-07T03:17:55.283606+00:00"
+  },
+  "meaning": "known upstream failure reproduced; existing upstream patch independently passed this matrix",
+  "status": "passed",
+  "versions": [
+    {
+      "binary_sha256": "3fe5038f3457b633827231f8ea1ef817148a1ffb39dcbb941137502a7828bfe6",
+      "records": [
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "signed-minimal",
+          "correct": false,
+          "count": 2,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            }
+          ],
+          "n": 4,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 2,
+          "case": "empty",
+          "correct": true,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 0,
+          "guards": true,
+          "n": 0,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 511
+        },
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "endpoints",
+          "correct": false,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 7,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 2
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            }
+          ],
+          "n": 7,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 127,
+          "case": "int8-bin-boundary-127",
+          "correct": false,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 127,
+          "case": "uint8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 128,
+          "case": "int8-bin-boundary-128",
+          "correct": false,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 128,
+          "case": "uint8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 129,
+          "case": "int8-bin-boundary-129",
+          "correct": false,
+          "count": 1,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 129,
+          "case": "uint8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 255,
+          "case": "int8-bin-boundary-255",
+          "correct": false,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 255,
+          "case": "uint8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "int8-bin-boundary-256",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "uint8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 257,
+          "case": "int8-bin-boundary-257",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 257,
+          "case": "uint8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 65536,
+          "case": "int16-full-domain",
+          "correct": false,
+          "count": 32768,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 65536,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 32768,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32769,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32770,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32771,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32772,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32773,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32774,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32775,
+              "expected": 1
+            }
+          ],
+          "n": 65536,
+          "sample_bytes": 2,
+          "signed": true,
+          "workspace_bytes": 2884095
+        },
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "int32-outside",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 4,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "wide-counter",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 8,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 2559
+        },
+        {
+          "api": "range",
+          "bins": 64,
+          "case": "plain-char",
+          "correct": true,
+          "count": 64,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 64,
+          "guards": true,
+          "n": 64,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "signed-minimal",
+          "correct": false,
+          "count": 2,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            }
+          ],
+          "n": 4,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 2,
+          "case": "empty",
+          "correct": true,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 0,
+          "guards": true,
+          "n": 0,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 511
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "endpoints",
+          "correct": false,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 7,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 2
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            }
+          ],
+          "n": 7,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 127,
+          "case": "int8-bin-boundary-127",
+          "correct": false,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 127,
+          "case": "uint8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 128,
+          "case": "int8-bin-boundary-128",
+          "correct": false,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 128,
+          "case": "uint8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 129,
+          "case": "int8-bin-boundary-129",
+          "correct": false,
+          "count": 1,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 129,
+          "case": "uint8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 255,
+          "case": "int8-bin-boundary-255",
+          "correct": false,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 255,
+          "case": "uint8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "int8-bin-boundary-256",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "uint8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 257,
+          "case": "int8-bin-boundary-257",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 257,
+          "case": "uint8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 65536,
+          "case": "int16-full-domain",
+          "correct": false,
+          "count": 32768,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 65536,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 32768,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32769,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32770,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32771,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32772,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32773,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32774,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 32775,
+              "expected": 1
+            }
+          ],
+          "n": 65536,
+          "sample_bytes": 2,
+          "signed": true,
+          "workspace_bytes": 2884095
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "int32-outside",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 4,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "wide-counter",
+          "correct": false,
+          "count": 128,
+          "count_bytes": 8,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "mismatches": [
+            {
+              "actual": 0,
+              "bin": 0,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 1,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 2,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 3,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 4,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 5,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 6,
+              "expected": 1
+            },
+            {
+              "actual": 0,
+              "bin": 7,
+              "expected": 1
+            }
+          ],
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 2559
+        },
+        {
+          "api": "even",
+          "bins": 64,
+          "case": "plain-char",
+          "correct": true,
+          "count": 64,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 64,
+          "guards": true,
+          "n": 64,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        }
+      ],
+      "returncode": 2,
+      "revision": "46a37f86b650bfc90b6cd852771bd31952688097",
+      "stderr": "",
+      "version": "base"
+    },
+    {
+      "binary_sha256": "0aa2d38880ecd82239d279332baf1e738ccc38f6d224b084c0bc6c2f72ab29f4",
+      "records": [
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "signed-minimal",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 4,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "range",
+          "bins": 2,
+          "case": "empty",
+          "correct": true,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 0,
+          "guards": true,
+          "n": 0,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 511
+        },
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "endpoints",
+          "correct": true,
+          "count": 7,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 7,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "range",
+          "bins": 127,
+          "case": "int8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1023
+        },
+        {
+          "api": "range",
+          "bins": 127,
+          "case": "uint8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 128,
+          "case": "int8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1023
+        },
+        {
+          "api": "range",
+          "bins": 128,
+          "case": "uint8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 129,
+          "case": "int8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1279
+        },
+        {
+          "api": "range",
+          "bins": 129,
+          "case": "uint8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 255,
+          "case": "int8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 255,
+          "case": "uint8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "int8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "uint8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 257,
+          "case": "int8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1791
+        },
+        {
+          "api": "range",
+          "bins": 257,
+          "case": "uint8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "range",
+          "bins": 65536,
+          "case": "int16-full-domain",
+          "correct": true,
+          "count": 65536,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 65536,
+          "guards": true,
+          "n": 65536,
+          "sample_bytes": 2,
+          "signed": true,
+          "workspace_bytes": 2884095
+        },
+        {
+          "api": "range",
+          "bins": 4,
+          "case": "int32-outside",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 4,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "range",
+          "bins": 256,
+          "case": "wide-counter",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 8,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 2559
+        },
+        {
+          "api": "range",
+          "bins": 64,
+          "case": "plain-char",
+          "correct": true,
+          "count": 64,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 64,
+          "guards": true,
+          "n": 64,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "signed-minimal",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 4,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "even",
+          "bins": 2,
+          "case": "empty",
+          "correct": true,
+          "count": 0,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 0,
+          "guards": true,
+          "n": 0,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 511
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "endpoints",
+          "correct": true,
+          "count": 7,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 7,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "even",
+          "bins": 127,
+          "case": "int8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1023
+        },
+        {
+          "api": "even",
+          "bins": 127,
+          "case": "uint8-bin-boundary-127",
+          "correct": true,
+          "count": 127,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 127,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 128,
+          "case": "int8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1023
+        },
+        {
+          "api": "even",
+          "bins": 128,
+          "case": "uint8-bin-boundary-128",
+          "correct": true,
+          "count": 128,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 128,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 129,
+          "case": "int8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1279
+        },
+        {
+          "api": "even",
+          "bins": 129,
+          "case": "uint8-bin-boundary-129",
+          "correct": true,
+          "count": 129,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 129,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 255,
+          "case": "int8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 255,
+          "case": "uint8-bin-boundary-255",
+          "correct": true,
+          "count": 255,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 255,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "int8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "uint8-bin-boundary-256",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 257,
+          "case": "int8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 1791
+        },
+        {
+          "api": "even",
+          "bins": 257,
+          "case": "uint8-bin-boundary-257",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": false,
+          "workspace_bytes": 1535
+        },
+        {
+          "api": "even",
+          "bins": 65536,
+          "case": "int16-full-domain",
+          "correct": true,
+          "count": 65536,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 65536,
+          "guards": true,
+          "n": 65536,
+          "sample_bytes": 2,
+          "signed": true,
+          "workspace_bytes": 2884095
+        },
+        {
+          "api": "even",
+          "bins": 4,
+          "case": "int32-outside",
+          "correct": true,
+          "count": 4,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 4,
+          "guards": true,
+          "n": 7,
+          "sample_bytes": 4,
+          "signed": true,
+          "workspace_bytes": 767
+        },
+        {
+          "api": "even",
+          "bins": 256,
+          "case": "wide-counter",
+          "correct": true,
+          "count": 256,
+          "count_bytes": 8,
+          "cub_version": 300600,
+          "expected_count": 256,
+          "guards": true,
+          "n": 256,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 2559
+        },
+        {
+          "api": "even",
+          "bins": 64,
+          "case": "plain-char",
+          "correct": true,
+          "count": 64,
+          "count_bytes": 4,
+          "cub_version": 300600,
+          "expected_count": 64,
+          "guards": true,
+          "n": 64,
+          "sample_bytes": 1,
+          "signed": true,
+          "workspace_bytes": 767
+        }
+      ],
+      "returncode": 0,
+      "revision": "a7f211c17cd15673d4bc8dbe2215c6952d9a1aef",
+      "stderr": "",
+      "version": "fixed"
+    }
+  ]
+}
