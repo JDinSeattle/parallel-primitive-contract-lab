@@ -15,7 +15,7 @@ std::vector<Count> histogram(const std::vector<Sample>& samples, const std::vect
   if (levels.size() < 2 || !std::is_sorted(levels.begin(), levels.end()) ||
       std::adjacent_find(levels.begin(), levels.end()) != levels.end())
     throw std::invalid_argument("levels must be strictly increasing");
-  std::vector<Count> result(levels.size()-1, 0);
+  std::vector<std::uint64_t> result(levels.size()-1, 0);
   for (auto x : samples) {
     const auto value=static_cast<std::int64_t>(x);
     const auto it=std::upper_bound(levels.begin(), levels.end(), value);
@@ -24,6 +24,6 @@ std::vector<Count> histogram(const std::vector<Sample>& samples, const std::vect
     if(count==std::numeric_limits<Count>::max()) throw std::overflow_error("counter overflow");
     ++count;
   }
-  return result;
+  return std::vector<Count>(result.begin(), result.end());
 }
 }

@@ -5,6 +5,7 @@ int main() {
   auto check=[&](bool b){if(!b)throw std::runtime_error("oracle contract failed");++checked;};
   check(contract::histogram(std::vector<int>{-61,-60,-30,-1,0,30,63,64}, {-60,-30,0,30,64})==std::vector<int64_t>({1,2,1,2}));
   check(contract::histogram(std::vector<int>{}, {-1,0,1})==std::vector<int64_t>({0,0}));
+  check(contract::histogram(std::vector<int8_t>{-128,-1,0,127}, {-128,-64,0,64,128})==std::vector<int64_t>({1,1,1,1}));
   for(int size=1;size<=256;++size){
     std::vector<int8_t> v; std::vector<int> edges;
     for(int i=0;i<size;++i){v.push_back(static_cast<int8_t>(i-128));edges.push_back(i-128);}

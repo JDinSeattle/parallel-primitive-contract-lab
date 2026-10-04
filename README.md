@@ -1,36 +1,59 @@
 # Parallel Primitive Contract Lab
 
-[![CPU contracts](https://github.com/JDinSeattle/parallel-primitive-contract-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/JDinSeattle/parallel-primitive-contract-lab/actions/workflows/ci.yml)
+A signed-byte histogram regression lab using an independent interval-search oracle, pinned bad and upstream-fixed CCCL revisions, output guards, and overflow-aware counting.
 
-A C++/CUDA histogram qualification project about **type contracts, independent oracles and honest regression evidence**. It reproduces a real CUB signed-byte failure, tests an existing upstream patch, and measures the cost of its dispatch change.
+## Confirmed qualification results
 
-The known bad CCCL revision fails **20 of 38 GPU cases**; the existing patched revision passes **38 of 38**, with output guards intact. The compiled CPU oracle has **263 checks**. [Exact results, sanitizer logs and version comparisons](docs/RESULTS.md).
+These are the user-confirmed results from a separate cloud test run, recorded in the experience bank. The device, workload, timing round, and counting boundaries below remain part of each result. They are distinct from the CPU checks performed in this checkout; cloud-hosted testing does not imply production deployment.
 
-## Reproduce
+- Reproduced the known signed-byte histogram defect on a pinned bad CCCL revision — 20 failures across a 38-case GPU matrix (20 cross-sign-boundary scenarios plus 18 controls) — while the existing upstream patched revision passed all 38 cases against the same independent interval-search oracle; the patch is upstream work, not an authored or accepted contribution of mine.
 
-Requires Linux, Git/curl, a C++17 compiler, CUDA toolkit/Compute Sanitizer, a real NVIDIA GPU, and uv:
+- Built the CPU oracle from the interval definition itself rather than another CUB call: byte inputs are widened to int64 before bucket comparison, buckets are half-open [left,right) with the rightmost edge excluded, and 263 ASan/UBSan checks cover the reference while 18 pytest include the shared 16 process/file cases.
+
+- Verified the minimal boundary drill — input [-128,-1,0,127] with bucket boundaries [-128,-64,0,64,128] expecting [1,1,1,1] — and kept the signed-byte overflow explanation a local demonstration mutation (sample−lower stored in int8 overflows past 127; the reference always stays int64), not a claim about the upstream source root cause.
+
+- Gated counting on overflow: output is uint32, accumulation happens in 64-bit and is rejected before UINT32_MAX, guards sit on both output ends, and every run also checks that all buckets sum to the number of in-range samples so a wrong-but-conserving bucketization cannot pass.
+
+- Rejected 4 counterexample fixtures (negative count, duplicate bucket, missed tail element, counter overflow) and measured the cost of correctness: on the signed-positive subset the patched version took 8.8 μs against the old 8.0 μs (10% slower), with 20 warmups and 31 paired randomized-order event timings per version and the sanitizer run separately.
+
+- Scoped the qualification to single-GPU, single-channel integer histograms on an RTX 4090 with CUDA 13.2 and C++17 (Python 3.13, Compute Sanitizer; CPU Clang 18.1.8 ASan/UBSan); floating-point, multichannel and multi-GPU merging are not in the contract.
+
+## Implementation and reproduction
+
+| Contract | Implementation |
+|---|---|
+| Widened independent interval oracle | [include/histogram_oracle.hpp](include/histogram_oracle.hpp) |
+| Native histogram harness | [src](src) |
+| Sanitized CPU boundary drill | [tests/oracle_test.cpp](tests/oracle_test.cpp) |
+| Isolated qualification ownership | [execution.py](execution.py) |
+
+Run each experiment into a fresh output directory to preserve earlier evidence.
 
 ```bash
-bash scripts/reproduce.sh
+python3 -m pip install pytest
+python3 scripts/run.py --cpu-only --output results/my-cpu-run
+# Requires the pinned CCCL revisions, CUDA and one GPU:
+python3 scripts/run.py --output results/my-gpu-run
 ```
 
-The script downloads two immutable CCCL revisions, builds the same probe against each, runs CPU ASan/UBSan, GPU memcheck/racecheck, and seven shuffled benchmark rounds. Default build target is sm_89. Missing GPU or a wrong expected failure stops the run.
+Regression entry points: [tests/oracle_test.cpp](tests/oracle_test.cpp), [tests/test_execution.py](tests/test_execution.py), [tests/test_evidence.py](tests/test_evidence.py).
 
-Minimal reproduction after setup:
+## Scope and evidence
 
-```bash
-build/46a37f86b650bfc90b6cd852771bd31952688097 minimal  # expected exit 2
-build/a7f211c17cd15673d4bc8dbe2215c6952d9a1aef minimal  # expected exit 0
-```
+The source patch is upstream work. The additional local minimal-boundary regression increases the CPU oracle count separately; it does not rewrite the confirmed external 263-check report.
 
-CPU-only: `python scripts/run.py --cpu-only` with pytest installed. Report: `python scripts/summarize.py results/<run-directory>`.
+- The bad revision fails 20 of 38 GPU cases and the patched revision passes 38/38 on the same matrix (20 cross-sign-boundary scenarios plus 18 controls); no submission or acceptance of the upstream patch is claimed.
 
-## Engineering evidence
+- 263 is the ASan/UBSan CPU reference-check count, and the 18 pytest include the shared 16 process/file cases — they must not be described as 263 pytest tests.
 
-- Independent interval-search oracle, widened arithmetic and explicit overflow handling.
-- Signed/unsigned byte, int16, int32 and native-char coverage; exact edges, empty inputs, large bin counts and wide counters.
-- Protected output buffers and real device execution; no mocked CUDA success.
-- Bad-version failure as an acceptance condition, immutable version and binary hashes, and unsigned fast-path controls.
-- Raw timing arrays, per-round medians and dispersion; correctness and sanitizer stay outside timing.
+- The local int8 overflow mutation demonstrates the signed-byte widening mechanism but is not the upstream source root cause.
 
-The fix is authored in existing [upstream PR #10993](https://github.com/NVIDIA/cccl/pull/10993). **This repository is independent validation, not a claim of new patch authorship or an accepted upstream contribution.** The [contract/root-cause explanation](docs/contract.md), [review packet](docs/UPSTREAM_REVIEW.md), and [interview guide](docs/INTERVIEW.md) define the scope precisely. Floating-point bins, multichannel APIs and multi-GPU portability are not qualified here.
+- Signed-positive dispatch can be slower: the patched version measured 8.8 μs against 8.0 μs on that subset (10%), so this is not a universal performance win.
+
+- Single GPU, single-channel integer histograms only; NaN intervals, multichannel layouts and cross-GPU merging are outside the contract.
+
+- Bucket-sum equality alone is not correctness; exact per-bucket comparison plus the output guards are required.
+
+- Local RTX 4090 / CUDA 13.2 lab; the frozen bad and patched CCCL archives are bound to binary digests.
+
+The [previous README](README.historical.md) preserves earlier setup details, design discussion, and historical measurements. Its older counts, splits, versions, and timing cohorts must not be mixed with the confirmed round above. [Result provenance](docs/experience-bank-results.json) retains the confirmed bullet text; [checkout validation](docs/checkout-validation.md) records what was actually rerun here.
